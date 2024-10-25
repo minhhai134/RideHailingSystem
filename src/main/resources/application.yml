@@ -1,0 +1,29 @@
+server:
+  port: 8081
+
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  datasource:
+    url: 'jdbc:mysql://localhost:3306/ubersystem'
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+        ddl-auto: create-drop
+    show-sql: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    stomp:
+      relay:
+        host: localhost
+        port: 61613
+        login: guest
+        passcode: guest
