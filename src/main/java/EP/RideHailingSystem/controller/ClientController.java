@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/api/client")
 @CrossOrigin // De tam thoi
@@ -32,11 +34,11 @@ public class ClientController {
     }
 
     @PostMapping("/booking")
-    public ResponseEntity<BookingResponse> booking(@Valid @RequestBody BookingRequest request) {
+    public ResponseEntity<List<String>> booking(@Valid @RequestBody BookingRequest request) {
         // ? Goi LocationService de lay danh sach 3 tai xe gan nhat
         // Sau do lam sao de gui thong bao cho cac tai xe
 
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body( clientService.booking(request));
     }
 
 

@@ -31,30 +31,4 @@ public class DriverServiceImp implements DriverService {
     }
 
 
-    public boolean updateDriverLocation(UpdateDriverLocationRequest request) {
-        String id = request.getId();
-        double lat_ = request.getLat_();
-        double long_ = request.getLong_();
-        String status = request.getStatus();
-
-
-        if(status.equals("online")){ // Bad design
-           long count = redisTemplate.opsForGeo().add("driverLocation", new Point(lat_,long_), id);
-           log.info("Position: {}", redisTemplate.opsForGeo().position("driverLocation", id));
-           if(count==1) return true;
-           else throw new UpdateLocationErrorException();
-        }
-        else if(status.equals("normal")){
-            long count = redisTemplate.opsForGeo().add("driverLocation", new Point(lat_,long_), id);
-            if(count==0) return true;
-            else throw new UpdateLocationErrorException();
-        }
-        else if(status.equals("offline")){
-            long count = redisTemplate.opsForZSet().remove("driverLocation", id);
-            if(count==1) return true;
-            else throw new UpdateLocationErrorException();
-        }
-        else throw new InvalidRequestException();
-
-    }
 }

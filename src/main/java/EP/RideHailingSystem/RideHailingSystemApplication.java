@@ -20,17 +20,28 @@ public class RideHailingSystemApplication {
 
 		driverRepository.save(Driver.builder().
 				userName("driver1").
-				passWord("password1").
+				passWord("password").
 				build());
 
-//		driverRepository.save(Driver.builder().
-//				userName("user2").
-//				passWord("password2").
-//				build());
+		driverRepository.save(Driver.builder().
+				userName("driver2").
+				passWord("password").
+				build());
+
+		driverRepository.save(Driver.builder().
+				userName("driver3").
+				passWord("password").
+				build());
+
+		driverRepository.save(Driver.builder().
+				userName("driver4").
+				passWord("password").
+				build());
+
 
 		clientRepository.save(Client.builder().
 				userName("client1").
-				passWord("password1").
+				passWord("password").
 				build());
 
 	}

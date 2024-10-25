@@ -10,7 +10,7 @@ public interface DriverService {
 
      Driver login(DriverLoginRequest request);
 
-     boolean updateDriverLocation(UpdateDriverLocationRequest request);
+//     boolean updateDriverLocation(UpdateDriverLocationRequest request);
 
 
 }

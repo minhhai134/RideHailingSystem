@@ -8,10 +8,14 @@ import EP.RideHailingSystem.model.Client;
 import EP.RideHailingSystem.model.Fare;
 import EP.RideHailingSystem.repository.ClientRepository;
 import EP.RideHailingSystem.repository.FareRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
+@Slf4j
 public class ClientServiceImp implements ClientService {
 
     @Autowired
@@ -29,7 +33,7 @@ public class ClientServiceImp implements ClientService {
                 .orElseThrow(() -> new ClientNotFoundException());
     }
 
-    public void booking(BookingRequest request){
+    public List<String> booking(BookingRequest request) {
         Fare savedFare = fareRepository.save(Fare.builder()
                         .clientId(request.getClientId())
                         .latPickup(request.getLatPickup())
@@ -39,7 +43,11 @@ public class ClientServiceImp implements ClientService {
                         .requestTime(request.getRequestTime())
                         .build());
 
+        List<String> nearestDrivers = locationService.getNearestDrivers(request.getLongPickup(), request.getLatPickup());
 
+        log.info("Nearest Drivers: {}", nearestDrivers );
+
+        return nearestDrivers;
     }
 
 }
