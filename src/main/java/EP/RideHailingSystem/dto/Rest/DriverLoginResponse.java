@@ -1,11 +1,10 @@
-package EP.RideHailingSystem.dto;
+package EP.RideHailingSystem.dto.Rest;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ClientLoginResponse {
-
+public class DriverLoginResponse {
     private String id;
 }

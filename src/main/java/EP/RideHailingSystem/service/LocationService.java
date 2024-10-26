@@ -1,6 +1,6 @@
 package EP.RideHailingSystem.service;
 
-import EP.RideHailingSystem.dto.UpdateDriverLocationRequest;
+import EP.RideHailingSystem.dto.Rest.UpdateDriverLocationRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

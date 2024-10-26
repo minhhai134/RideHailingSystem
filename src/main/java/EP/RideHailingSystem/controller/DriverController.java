@@ -1,9 +1,6 @@
 package EP.RideHailingSystem.controller;
 
-import EP.RideHailingSystem.dto.DriverLoginRequest;
-import EP.RideHailingSystem.dto.DriverLoginResponse;
-import EP.RideHailingSystem.dto.UpdateDriverLocationRequest;
-import EP.RideHailingSystem.dto.UpdateDriverLocationResponse;
+import EP.RideHailingSystem.dto.Rest.*;
 import EP.RideHailingSystem.model.Driver;
 import EP.RideHailingSystem.service.DriverService;
 import EP.RideHailingSystem.service.LocationService;
@@ -38,9 +35,19 @@ public class DriverController {
     }
 
 
-    @PostMapping("/updatelocation")
+    @PostMapping("/update-location")
     private ResponseEntity<UpdateDriverLocationResponse> updateDriverLocation(@Valid @RequestBody UpdateDriverLocationRequest request){
         locationService.updateDriverLocation(request);
         return ResponseEntity.ok().body(UpdateDriverLocationResponse.builder().updateStatus("OK").build());
     }
+
+    @PostMapping("/response-ride-matching")
+    private ResponseEntity<ResponseRideMatchingResponse> responseRideMatching(@Valid @RequestBody ResponseRideMatchingRequest request) {
+        driverService.responseRideMatching(request);
+        return ResponseEntity.ok(ResponseRideMatchingResponse.builder().status("Response sent").build());
+    }
+
+
+
+    
 }

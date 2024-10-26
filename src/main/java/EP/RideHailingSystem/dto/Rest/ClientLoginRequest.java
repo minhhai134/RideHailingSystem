@@ -1,4 +1,4 @@
-package EP.RideHailingSystem.dto;
+package EP.RideHailingSystem.dto.Rest;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package EP.RideHailingSystem.dto;
+package EP.RideHailingSystem.dto.Rest;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,4 +6,5 @@ import lombok.Data;
 @Data
 @Builder
 public class BookingResponse {
+    private String bookingStatus;
 }

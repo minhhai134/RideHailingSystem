@@ -1,6 +1,6 @@
 package EP.RideHailingSystem.service;
 
-import EP.RideHailingSystem.dto.UpdateDriverLocationRequest;
+import EP.RideHailingSystem.dto.Rest.UpdateDriverLocationRequest;
 import EP.RideHailingSystem.exception.InvalidRequestException;
 import EP.RideHailingSystem.exception.UpdateLocationErrorException;
 import lombok.extern.slf4j.Slf4j;
@@ -15,15 +15,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import static io.lettuce.core.GeoArgs.Unit.km;
 
 @Service
 @Slf4j
 public class LocationServiceImp implements LocationService {
     // Hien tai chuc nang luu vi tri tai xe dang duoc dat o DriverService, can xem xet lai
-    private static final int limitNearest = 2;
+    private static final int limitNearest = 1; // so tai xe trong mot lan tim kiem
     private static final double radiusInKm = 1;
 
     @Autowired

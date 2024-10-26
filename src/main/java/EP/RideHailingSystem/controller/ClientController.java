@@ -1,10 +1,11 @@
 package EP.RideHailingSystem.controller;
 
-import EP.RideHailingSystem.dto.*;
+import EP.RideHailingSystem.dto.Rest.BookingRequest;
+import EP.RideHailingSystem.dto.Rest.BookingResponse;
+import EP.RideHailingSystem.dto.Rest.ClientLoginRequest;
+import EP.RideHailingSystem.dto.Rest.DriverLoginResponse;
 import EP.RideHailingSystem.model.Client;
-import EP.RideHailingSystem.model.Driver;
 import EP.RideHailingSystem.service.ClientService;
-import EP.RideHailingSystem.service.DriverService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/api/client")
@@ -34,11 +33,11 @@ public class ClientController {
     }
 
     @PostMapping("/booking")
-    public ResponseEntity<List<String>> booking(@Valid @RequestBody BookingRequest request) {
-        // ? Goi LocationService de lay danh sach 3 tai xe gan nhat
+    public ResponseEntity<BookingResponse> booking(@Valid @RequestBody BookingRequest request) {
+        // ? Goi LocationService de tim tai xe gan nhat
         // Sau do lam sao de gui thong bao cho cac tai xe
-
-        return ResponseEntity.status(HttpStatus.OK).body( clientService.booking(request));
+        clientService.booking(request);
+        return ResponseEntity.status(HttpStatus.OK).body(BookingResponse.builder().bookingStatus("requested").build());
     }
 
 
