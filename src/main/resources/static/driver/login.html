@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script>
+        async function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Validate inputs
+            if (username === '' || password === '') {
+                alert("Please enter both username and password.");
+                return;
+            }
+
+            const loginData = {
+                userName: username,
+                passWord: password
+            };
+
+            try {
+                // Call the login API
+                const response = await fetch('http://localhost:8081/api/driver/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData)
+                });
+
+                // Check if the login was successful
+                if (response.ok) {
+                    const data = await response.json();
+                    const userId = data.id; // Assuming the API response contains an "id" field
+
+                    // Store the user ID in sessionStorage
+                    sessionStorage.setItem("userId", userId);
+                    sessionStorage.setItem("name", username);
+                    // console.log(userId);
+                    // Redirect to the index.html page
+                    window.location.href = "index.html";
+                } else {
+                    // Handle login failure
+                    alert("Login failed. Please check your credentials.");
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert("An error occurred while logging in.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Login Page</h2>
+    <form onsubmit="event.preventDefault(); login();">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
