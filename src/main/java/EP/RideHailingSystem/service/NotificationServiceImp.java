@@ -1,5 +1,7 @@
 package EP.RideHailingSystem.service;
 
+import EP.RideHailingSystem.dto.WebSocket.RideMatchingNotification;
+import EP.RideHailingSystem.dto.WebSocket.RideResponseNotification;
 import EP.RideHailingSystem.model.Driver;
 import EP.RideHailingSystem.model.Fare;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +23,7 @@ public class NotificationServiceImp implements NotificationService{
         String id = driverId.get(0);
         try {
             log.info("Choosen driver: {}", id);
-            messagingTemplate.convertAndSend("/topic/"+id, fare);
+            messagingTemplate.convertAndSend("/topic/"+id, RideMatchingNotification.builder().fare(fare).build());
         } catch (MessagingException e) {
             throw new MessagingException("MESSAGE_SENDING_ERROR");
         }
@@ -31,8 +33,8 @@ public class NotificationServiceImp implements NotificationService{
     public void sendRideResponseNotification(String userId, Driver driver) {
         try {
             log.info("Driver's response: {}", driver);
-            if(driver==null) messagingTemplate.convertAndSend("/topic/"+userId, "Not matching ride");
-            messagingTemplate.convertAndSend("/topic/"+userId, driver);
+            if(driver==null) messagingTemplate.convertAndSend("/topic/"+userId, RideResponseNotification.builder().response("reject").build());
+            messagingTemplate.convertAndSend("/topic/"+userId, RideResponseNotification.builder().response("accept").driver(driver).build());
         } catch (MessagingException e) {
             throw new MessagingException("MESSAGE_SENDING_ERROR");
         }
